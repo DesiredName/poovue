@@ -12,7 +12,7 @@
             <UserHighlights />
         </div>
 
-        <div class="page-layout__user-menu__mobile">
+        <div class="page-layout__user-menu__compact">
             <UserMenuCompact />
         </div>
     </div>
@@ -32,11 +32,11 @@ useHead({
 }
 
 .body__page-layout-container .page-layout {
-	@apply fixed inset-0 flex flex-col lg:flex-row gap-0 lg:gap-4;
+	@apply fixed inset-0 flex flex-col xl:flex-row gap-0 xl:gap-4;
 }
 
 .body__page-layout-container .page-layout .page-layout__user-menu__desktop {
-	@apply hidden lg:block min-w-max;
+	@apply hidden xl:block min-w-max;
 }
 
 .body__page-layout-container .page-layout .page-layout__content {
@@ -44,10 +44,10 @@ useHead({
 }
 
 .body__page-layout-container .page-layout .page-layout__highlights {
-	@apply hidden lg:block min-w-max;
+	@apply hidden xl:block min-w-max;
 }
 
-.body__page-layout-container .page-layout .page-layout__user-menu__mobile {
-	@apply block lg:hidden;
+.body__page-layout-container .page-layout .page-layout__user-menu__compact {
+	@apply block xl:hidden;
 }
 </style>
