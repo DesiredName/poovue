@@ -11,6 +11,6 @@ const abbr = user.username.value.split(/\s/).map(word=>word.charAt(0)).join('');
 
 <style>
 .element_user-button {
-	@apply inline-block rounded-full text-center overflow-hidden text-ellipsis;
+	@apply inline-flex rounded-full items-center content-center justify-center text-center overflow-hidden text-ellipsis;
 }
 </style>

@@ -36,7 +36,7 @@ useHead({
 }
 
 .body__page-layout-container .page-layout .page-layout__user-menu__desktop {
-	@apply hidden xl:block min-w-max;
+	@apply hidden xl:block;
 }
 
 .body__page-layout-container .page-layout .page-layout__content {
@@ -44,7 +44,7 @@ useHead({
 }
 
 .body__page-layout-container .page-layout .page-layout__highlights {
-	@apply hidden xl:block min-w-max;
+	@apply hidden xl:block;
 }
 
 .body__page-layout-container .page-layout .page-layout__user-menu__compact {
