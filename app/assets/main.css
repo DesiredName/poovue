@@ -1,17 +1,24 @@
 @tailwind utilities;
 
+/* global */
+*, *::after, *::before {
+    interpolate-size: allow-keywords;
+    scrollbar-width: thin;
+}
+
 /* Themes */
 :root[data-app-theme='dark'] {
-    --color-primary: #2f313f;
-    --color-secondary: #737981;
+    --color-primary: #151515;
+    --color-secondary: #272727;
     --color-text: #ffffff;
     --color-highlight: #ccc;
     --color-highlight-text: blue;
 }
 
-/* Lanfing page colors */
+/* Landing page colors */
 :root {
---color-brand-primary: #151515;
---color-brand-secondary: #272727;
---color-brand-text: #fff;
+    --color-brand-primary: #151515;
+    --color-brand-secondary: #272727;
+    --color-brand-text: #ffffff;
 }
+

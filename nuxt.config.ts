@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
     compatibilityDate: '2025-05-15',
     future: { compatibilityVersion: 4 },
-    devtools: { enabled: true },
+    devtools: { enabled: false },
     css: [
         './app/assets/main.css',
     ],
@@ -26,6 +26,7 @@ export default defineNuxtConfig({
         lazy: true,
     },
     tailwindcss: {
-        quiet: true,
+        exposeConfig: true,
+        quiet: false,
     },
 });

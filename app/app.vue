@@ -1,14 +1,17 @@
 <template>
-    <div>
-        Hello Nuxt Fonts!
-    </div>
+    <NuxtLayout>
+        <NuxtPage />
+    </NuxtLayout>
 </template>
 
 <script setup lang="ts">
+const appConfig = useAppConfig();
+
 useHead({
     htmlAttrs: {
-        'data-theme': 'dark',
+        'data-app-theme': 'dark',
     },
+    titleTemplate: (s) => s != null ? `${s} | ${appConfig.mainTitle}` : appConfig.mainTitle,
 });
 </script>
 
