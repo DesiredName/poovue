@@ -1,6 +1,8 @@
 <template>
     <span class="element_user-button">
-        {{ abbr }}
+        <span class="translate-y-[-2px]">
+            {{ abbr }}
+        </span>
     </span>
 </template>
 
