@@ -1,23 +1,11 @@
 declare type AppTheme = 'dark' | 'light';
 
-const THEME_KEY = Object.freeze('app-theme');
+export const THEME_KEY = Object.freeze('app-theme');
 
 export default function useTheme() {
     const theme = useCookie(THEME_KEY, {
         default: () => ref<AppTheme | null>(null),
     });
-
-    const setIntialTheme = () => {
-        if (import.meta.client && window && theme.value == null) {
-            const result = window.matchMedia('(prefers-color-scheme: dark)');
-
-            if (result.matches){
-                setTheme('dark');
-            } else {
-                setTheme('light');
-            }
-        }
-    };
 
     const switchTheme = () => {
         if (import.meta.client && window) {
@@ -36,7 +24,6 @@ export default function useTheme() {
     return {
         theme: readonly(theme),
         setTheme,
-        setIntialTheme,
         switchTheme,
     };
 }

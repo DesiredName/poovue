@@ -104,7 +104,7 @@
                     </div>
                 </div>
                 <div class="block__element">
-                    <div class="footer__element">
+                    <div class="footer__element" @click="toggleUnsafeContentAllowed">
                         <IconEye class="size-4" />
                     </div>
                 </div>
@@ -119,7 +119,7 @@
 </template>
 
 <script setup lang="ts">
-const { nickname, username } = useUser();
+const { nickname, username, toggleUnsafeContentAllowed } = useUser();
 const { switchTheme } = useTheme();
 const isExpanded = useCookie('is-menu-expanded', { default: () => ref<boolean>(false) });
 
