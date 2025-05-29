@@ -13,8 +13,8 @@
                             <ElementUserButton class="size-10 bg-text text-primary uppercase" />
                         </div>
                         <span class="element__title">
-                            <div>asdsas asd a</div>
-                            <div>asdsas asd a</div>
+                            <div class="font-bold">{{ username }}</div>
+                            <div>{{ nickname }}</div>
                         </span>
                     </div>
                 </div>
@@ -119,6 +119,7 @@
 </template>
 
 <script setup lang="ts">
+const { nickname, username } = useUser();
 const isExpanded = useCookie('is-menu-expanded', { default: () => ref<boolean>(false) });
 
 const handleToggleExpanded = () => {
@@ -202,12 +203,12 @@ const handleToggleExpanded = () => {
 }
 
 .container_block_footer .block__element {
-	@apply flex items-center justify-center flex-1 min-w-8 h-8 cursor-pointer;
+	@apply flex items-center justify-center flex-1 min-w-10 min-h-10 cursor-pointer rounded-md bg-[rgba(255,255,255,5%)];
+	@apply transition-colors duration-200;
+	@apply hover:bg-highlight;
 }
 
 .container_block_footer .block__element .footer__element {
-    @apply flex items-center justify-center size-8 rounded-full bg-[rgba(255,255,255,5%)];
-	@apply transition-colors duration-200;
-	@apply hover:bg-[rgba(255,255,255,15%)];
+    @apply flex items-center justify-center size-8;
 }
 </style>

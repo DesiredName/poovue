@@ -7,9 +7,17 @@
 }
 
 /* Themes */
-:root[data-app-theme='dark'] {
-    --color-primary: #151515;
-    --color-secondary: #272727;
+:root {
+    --color-primary: #ffffff;
+    --color-secondary: rgba(21, 21, 21, 0.2);
+    --color-text: rgb(21, 21, 21);
+    --color-highlight: #cccccccc;
+    --color-highlight-text: blue;
+}
+
+:root[app-theme='dark'] {
+    --color-primary: rgb(21, 21, 21);
+    --color-secondary: rgb(39, 39, 39);
     --color-text: #ffffff;
     --color-highlight: #cccccc86;
     --color-highlight-text: blue;
