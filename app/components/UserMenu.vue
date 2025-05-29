@@ -110,7 +110,7 @@
                 </div>
                 <div class="block__element">
                     <div class="footer__element">
-                        <span class="flag:EN" />
+                        <LocaleSelector class="size-4" />
                     </div>
                 </div>
             </div>

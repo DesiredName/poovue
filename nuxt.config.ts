@@ -5,7 +5,10 @@ export default defineNuxtConfig({
     devtools: { enabled: false },
     css: [
         './app/assets/main.css',
-        './node_modules/country-flag-icons/flags/3x2/flags.css',
+        // NOTE: This is just a source for flags, package is not used directly in ther code
+        //       !!! DO NOT IMPORT ALL !!!
+        //       use only those that are needed in icon components
+        // './node_modules/country-flag-icons/flags/3x2/flags.css',
         './node_modules/floating-vue/dist/style.css',
     ],
     modules: [
@@ -26,12 +29,12 @@ export default defineNuxtConfig({
     i18n: {
         bundle: { optimizeTranslationDirective: false },
         locales: [
-            { code: 'gb', name: 'EN', language: 'en-US', file: 'en-US.ts' },
+            { code: 'us', name: 'US', language: 'en-US', file: 'en-US.ts' },
             { code: 'ru', name: 'RU', language: 'ru-RU', file: 'ru-RU.ts' },
             { code: 'cz', name: 'CZ', language: 'cs-CZ', file: 'cs-CZ.ts' },
         ],
-        defaultLocale: 'gb',
-        strategy: 'prefix_except_default',
+        defaultLocale: 'us',
+        strategy: 'no_prefix',
         langDir: './locales',
         lazy: true,
     },
