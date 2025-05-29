@@ -19,6 +19,12 @@ export default function useTheme() {
         }
     };
 
+    const switchTheme = () => {
+        if (import.meta.client && window) {
+            setTheme( theme.value === 'dark' ? 'light' : 'dark');
+        }
+    };
+
     const setTheme = (selected: AppTheme) => {
         theme.value = selected;
 
@@ -31,5 +37,6 @@ export default function useTheme() {
         theme: readonly(theme),
         setTheme,
         setIntialTheme,
+        switchTheme,
     };
 }

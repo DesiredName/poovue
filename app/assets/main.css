@@ -1,7 +1,9 @@
 @tailwind utilities;
 
 /* global */
-*, *::after, *::before {
+*,
+*::after,
+*::before {
     interpolate-size: allow-keywords;
     scrollbar-width: thin;
 }
@@ -13,6 +15,7 @@
     --color-text: rgb(21, 21, 21);
     --color-highlight: #cccccccc;
     --color-highlight-text: blue;
+    --color-active-element: rgba(73, 242, 100, 0.2);
 }
 
 :root[app-theme='dark'] {
@@ -21,6 +24,7 @@
     --color-text: #ffffff;
     --color-highlight: #cccccc86;
     --color-highlight-text: blue;
+    --color-active-element: rgba(73, 242, 100, 0.2);
 }
 
 /* Landing page colors */
@@ -29,4 +33,3 @@
     --color-brand-secondary: #272727;
     --color-brand-text: #ffffff;
 }
-
