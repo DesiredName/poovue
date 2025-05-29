@@ -5,20 +5,30 @@ export default defineNuxtConfig({
     devtools: { enabled: false },
     css: [
         './app/assets/main.css',
+        './node_modules/country-flag-icons/flags/3x2/flags.css',
+        './node_modules/floating-vue/dist/style.css',
     ],
     modules: [
         '@nuxt/eslint',
-        '@nuxt/fonts',
         '@nuxt/image',
         '@nuxtjs/tailwindcss',
         '@nuxtjs/i18n',
+        '@nuxtjs/google-fonts',
     ],
+    googleFonts: {
+        families: {
+            Roboto: true,
+        },
+        download: true,
+        overwriting: true,
+        display: 'block',
+    },
     i18n: {
         bundle: { optimizeTranslationDirective: false },
         locales: [
-            { code: 'gb', name: 'EN', renderKey: 'EN', language: 'en-US', file: 'en-US.ts' },
-            { code: 'ru', name: 'RU', renderKey: 'RU', language: 'ru-RU', file: 'ru-RU.ts' },
-            { code: 'cz', name: 'CZ', renderKey: 'CZ', language: 'cs-CZ', file: 'cs-CZ.ts' },
+            { code: 'gb', name: 'EN', language: 'en-US', file: 'en-US.ts' },
+            { code: 'ru', name: 'RU', language: 'ru-RU', file: 'ru-RU.ts' },
+            { code: 'cz', name: 'CZ', language: 'cs-CZ', file: 'cs-CZ.ts' },
         ],
         defaultLocale: 'gb',
         strategy: 'prefix_except_default',

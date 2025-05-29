@@ -120,6 +120,10 @@ const handleToggleExpanded = () => {
 	@apply opacity-100 pointer-events-auto;
 }
 
+.user-menu.is-expanded .user-menu__expand {
+	@apply rotate-180;
+}
+
 .user-menu.is-expanded .block__element {
 	@apply w-60;
 }
@@ -128,11 +132,10 @@ const handleToggleExpanded = () => {
 	@apply opacity-100 pointer-events-auto;
 }
 
-
 .user-menu__expand {
 	@apply flex items-center justify-center;
-	@apply absolute right-[-10%] top-[50%] w-10 h-10 cursor-pointer;
-	@apply opacity-0 pointer-events-none transition-opacity duration-200 delay-300;
+	@apply absolute -right-3 top-[50%] w-10 h-10 cursor-pointer;
+	@apply opacity-0 pointer-events-none transition-[opacity,transform] duration-200 delay-300;
 }
 
 .user-menu__container {
@@ -162,7 +165,7 @@ const handleToggleExpanded = () => {
 }
 
 .element__content .element__title {
-	@apply overflow-hidden text-ellipsis max-w-32 transition-opacity duration-200;
+	@apply overflow-hidden text-ellipsis whitespace-nowrap max-w-32 transition-opacity duration-200;
 	@apply opacity-0 pointer-events-none;
 }
 
