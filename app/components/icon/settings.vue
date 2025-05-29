@@ -1,10 +1,11 @@
 <template>
     <svg
         xmlns="http://www.w3.org/2000/svg"
-        height="32"
+        width="24"
+        height="24"
         viewBox="0 0 32 32"
-        width="32"
         fill="currentColor"
+        style="pointer-events: none;"
     >
         <g>
             <path

@@ -2,9 +2,10 @@
     <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24"
-        viewBox="0 0 24 24"
         width="24"
+        viewBox="0 0 24 24"
         fill="currentColor"
+        style="pointer-events: none;"
     >
         <g>
             <path d="m6 13.5c.8 0 1.5-.7 1.5-1.5s-.7-1.5-1.5-1.5-1.5.7-1.5 1.5.7 1.5 1.5 1.5z"/>

@@ -5,6 +5,7 @@
         viewBox="0 0 24 24"
         width="24"
         fill="currentColor"
+        style="pointer-events: none;"
     >
         <g id="Layer_2" data-name="Layer 2">
             <path
