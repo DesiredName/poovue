@@ -5,6 +5,7 @@
         </div>
 
         <div class="user-menu__container">
+
             <div class="container_block">
                 <div class="block__element no-padding">
                     <div class="element__content">
@@ -18,6 +19,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="container_block flex-1">
                 <div class="block__element">
                     <div class="element__content">
@@ -68,6 +70,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="container_block">
                 <div class="block__element">
                     <div class="element__content">
@@ -88,16 +91,28 @@
                     </div>
                 </div>
             </div>
-            <div class="container_block">
-                <!-- <div class="block__element">
-                    <IconOthers class="w-4 h-4" />
+
+            <div class="container_block_footer">
+                <div class="block__element">
+                    <div class="footer__element">
+                        <IconOthers class="size-4"/>
+                    </div>
                 </div>
                 <div class="block__element">
-                    <IconEye class="w-4 h-4" />
+                    <div class="footer__element">
+                        <IconTheme class="size-4"/>
+                    </div>
                 </div>
                 <div class="block__element">
-                    <ElementUserButton class="w-10 h-10 bg-text text-primary" />
-                </div> -->
+                    <div class="footer__element">
+                        <IconEye class="size-4" />
+                    </div>
+                </div>
+                <div class="block__element">
+                    <div class="footer__element">
+                        <span class="flag:EN" />
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -124,14 +139,6 @@ const handleToggleExpanded = () => {
 	@apply rotate-180;
 }
 
-.user-menu.is-expanded .block__element {
-	@apply w-60;
-}
-
-.user-menu.is-expanded .element__content .element__title {
-	@apply opacity-100 pointer-events-auto;
-}
-
 .user-menu__expand {
 	@apply flex items-center justify-center;
 	@apply absolute -right-3 top-[50%] w-10 h-10 cursor-pointer;
@@ -142,34 +149,65 @@ const handleToggleExpanded = () => {
 	@apply flex flex-col items-center justify-start flex-1 bg-primary px-2 rounded-lg;
 }
 
-.container_block {
-	@apply flex flex-col gap-1 py-2 w-full;
+/*  */
+
+.user-menu.is-expanded .container_block .block__element {
+	@apply w-60;
 }
 
-.block__element {
+.user-menu.is-expanded .container_block .element__content .element__title {
+	@apply opacity-100 pointer-events-auto;
+}
+
+.container_block {
+	@apply flex flex-col gap-1 py-2 w-full;
+	@apply border-b-[1px] border-b-secondary;
+}
+
+.container_block .block__element {
 	@apply flex items-center justify-start min-h-10 py-2 cursor-pointer;
 	@apply hover:bg-highlight rounded-md transition-[colors,width] duration-200 w-10 px-3;
 }
 
-.block__element.no-padding {
+.container_block .block__element.no-padding {
 	@apply p-0;
 	@apply hover:bg-transparent;
 }
 
-.element__content {
+.container_block .element__content {
 	@apply flex flex-row flex-nowrap text-nowrap items-center justify-start gap-4;
 }
 
-.element__content .element__icon {
+.container_block .element__content .element__icon {
 	@apply size-4;
 }
 
-.element__content .element__title {
+.container_block .element__content .element__title {
 	@apply overflow-hidden text-ellipsis whitespace-nowrap max-w-32 transition-opacity duration-200;
 	@apply opacity-0 pointer-events-none;
 }
 
-.container_block:not(:last-of-type) {
-	@apply border-b-[1px] border-b-secondary;
+/*  */
+
+.user-menu.is-expanded .container_block_footer {
+	@apply justify-center flex-row;
+}
+
+.user-menu.is-expanded .container_block_footer .block__element .footer__element {
+	@apply flex-1;
+}
+
+.container_block_footer {
+	@apply flex flex-col gap-2 py-2 w-full;
+}
+
+.container_block_footer .block__element {
+	@apply flex items-center justify-center flex-1 min-w-8 h-8 cursor-pointer;
+}
+
+.container_block_footer .block__element .footer__element {
+    @apply flex items-center justify-center size-8 rounded-full bg-[rgba(255,255,255,5%)];
+	@apply transition-colors duration-200;
+	@apply hover:bg-[rgba(255,255,255,15%)];
 }
 </style>
