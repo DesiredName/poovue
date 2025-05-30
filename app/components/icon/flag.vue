@@ -5,7 +5,6 @@
         width="24"
         height="24"
         viewBox="0 0 513 342"
-        style="pointer-events: none;"
         v-bind="$attrs"
     >
         <path fill="#FFF" d="M0 0h513v342H0z" />
@@ -29,7 +28,6 @@
         width="24"
         height="24"
         viewBox="0 85.333 512 341.333"
-        style="pointer-events: none;"
         v-bind="$attrs"
     >
         <path fill="#FFF" d="M0 85.33v341.332h512V85.33z"/>

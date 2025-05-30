@@ -110,7 +110,7 @@
                 </div>
                 <div class="block__element">
                     <div class="footer__element">
-                        <LocaleSelector class="size-4" />
+                        <IconFlag class="size-4" :country-code="locale" />
                     </div>
                 </div>
             </div>
@@ -119,6 +119,7 @@
 </template>
 
 <script setup lang="ts">
+const { locale } = useI18n();
 const { nickname, username, toggleUnsafeContentAllowed } = useUser();
 const { switchTheme } = useTheme();
 const isExpanded = useCookie('is-menu-expanded', { default: () => ref<boolean>(false) });
@@ -190,21 +191,12 @@ const handleToggleExpanded = () => {
 }
 
 /*  */
-
-.user-menu.is-expanded .container_block_footer {
-	@apply justify-center flex-row;
-}
-
-.user-menu.is-expanded .container_block_footer .block__element .footer__element {
-	@apply flex-1;
-}
-
 .container_block_footer {
-	@apply flex flex-col gap-2 py-2 w-full;
+	@apply grid grid-cols-[repeat(auto-fit,minmax(40px,1fr))] justify-center gap-2 py-2 w-full;
 }
 
 .container_block_footer .block__element {
-	@apply flex items-center justify-center flex-1 min-w-10 min-h-10 cursor-pointer rounded-md bg-[rgba(255,255,255,5%)];
+	@apply flex items-center justify-center flex-1 min-w-10 h-10 cursor-pointer rounded-md bg-[rgba(255,255,255,5%)];
 	@apply transition-colors duration-200;
 	@apply hover:bg-highlight;
 }
