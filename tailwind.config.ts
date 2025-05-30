@@ -18,6 +18,12 @@ export default <Partial<Config>>{
                 'brand-secondary': 'var(--color-brand-secondary)',
                 'brand-text': 'var(--color-brand-text)',
             },
+            spacing: {
+                ['menu-compact']: 'var(--menu-compact-height)',
+            },
+            height: {
+                ['menu-compact']: 'var(--menu-compact-height)',
+            },
         },
     },
 };

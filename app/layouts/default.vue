@@ -15,6 +15,10 @@
         <div class="page-layout__user-menu__compact">
             <UserMenuCompact />
         </div>
+
+        <ClientOnly>
+            <CookiePolicy />
+        </ClientOnly>
     </div>
 </template>
 
@@ -28,7 +32,7 @@ useHead({
 
 <style >
 .body__page-layout-container {
-	@apply bg-secondary text-text fixed inset-0 overflow-hidden;
+	@apply bg-secondary text-text fixed inset-0 overflow-hidden ;
 }
 
 .body__page-layout-container .page-layout {

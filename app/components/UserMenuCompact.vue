@@ -24,7 +24,7 @@
 }
 
 .menu_button {
-	@apply flex items-center justify-center h-16 px-2 max-w-40 flex-1;
+	@apply flex items-center justify-center h-menu-compact px-2 max-w-40 flex-1;
 }
 .menu_button .icon {
 	@apply w-7 h-7;

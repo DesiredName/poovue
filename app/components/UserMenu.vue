@@ -21,13 +21,13 @@
             </div>
 
             <div class="container_block flex-1">
-                <div class="block__element">
+                <div v-tooltip.right="`Home`" class="block__element">
                     <div class="element__content">
                         <IconHome class="element__icon" />
                         <span class="element__title">Home</span>
                     </div>
                 </div>
-                <div class="block__element">
+                <div v-tooltip.right="{ content: `Discover`, disabled: true }" class="block__element">
                     <div class="element__content">
                         <IconSearch class="element__icon" />
                         <span class="element__title">Discover</span>
@@ -121,6 +121,8 @@
 </template>
 
 <script setup lang="ts">
+import { vTooltip } from 'floating-vue';
+
 const { locale } = useI18n();
 const { nickname, username, toggleUnsafeContentAllowed } = useUser();
 const { switchTheme } = useTheme();

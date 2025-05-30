@@ -33,3 +33,8 @@
     --color-brand-secondary: #272727;
     --color-brand-text: #ffffff;
 }
+
+/* Components: AppToolbar */
+:root {
+    --menu-compact-height: 4rem;
+}
