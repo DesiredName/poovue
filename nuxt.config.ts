@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     devtools: { enabled: false },
     css: [
         './app/assets/main.css',
+        './app/assets/tooltip.css',
         // NOTE: This is just a source for flags, package is not used directly in ther code
         //       !!! DO NOT IMPORT ALL !!!
         //       use only those that are needed in icon components

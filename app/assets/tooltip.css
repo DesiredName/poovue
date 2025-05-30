@@ -1,0 +1,26 @@
+/* VTooltip: Theme: Small Tooltip */
+.v-popper--theme-small-tooltip .v-popper__inner {
+    @apply text-sm bg-primary text-text px-2 py-1 rounded-md;
+}
+
+.v-popper--theme-small-tooltip .v-popper__arrow-inner {
+    @apply invisible;
+}
+
+.v-popper--theme-small-tooltip .v-popper__arrow-outer {
+    @apply invisible;
+}
+
+.v-popper--theme-small-tooltip.v-popper__popper--hidden {
+    @apply invisible opacity-0;
+    transition: opacity 0.15s, visibility 0.15s;
+}
+
+.v-popper--theme-small-tooltip.v-popper__popper--shown {
+    @apply visible opacity-100;
+    transition: opacity 0.15s;
+}
+
+.v-popper--theme-small-tooltip.v-popper__popper--skip-transition {
+    transition: none !important;
+}

@@ -21,73 +21,73 @@
             </div>
 
             <div class="container_block flex-1">
-                <div v-tooltip.right="`Home`" class="block__element">
+                <div v-tooltip="tooltipSetup('appSections.home')" class="block__element">
                     <div class="element__content">
                         <IconHome class="element__icon" />
-                        <span class="element__title">Home</span>
+                        <span class="element__title">{{$t('appSections.home')}}</span>
                     </div>
                 </div>
-                <div v-tooltip.right="{ content: `Discover`, disabled: true }" class="block__element">
+                <div v-tooltip="tooltipSetup('appSections.discover')" class="block__element">
                     <div class="element__content">
                         <IconSearch class="element__icon" />
-                        <span class="element__title">Discover</span>
+                        <span class="element__title">{{ $t('appSections.discover') }}</span>
                     </div>
                 </div>
-                <div class="block__element">
+                <div v-tooltip="tooltipSetup('appSections.notifications')" class="block__element">
                     <div class="element__content">
                         <IconBell class="element__icon" />
-                        <span class="element__title">Notifications</span>
+                        <span class="element__title">{{ $t('appSections.notifications') }}</span>
                     </div>
                 </div>
-                <div class="block__element">
+                <div v-tooltip="tooltipSetup('appSections.chats')" class="block__element">
                     <div class="element__content">
                         <IconChat class="element__icon" />
-                        <span class="element__title">Chats</span>
+                        <span class="element__title">{{ $t('appSections.chats') }}</span>
                     </div>
                 </div>
-                <div class="block__element">
+                <div v-tooltip="tooltipSetup('appSections.createAndEarn')" class="block__element">
                     <div class="element__content">
                         <IconDollar class="element__icon" />
-                        <span class="element__title">Create & Earn</span>
+                        <span class="element__title">{{ $t('appSections.createAndEarn') }}</span>
                     </div>
                 </div>
-                <div class="block__element">
+                <div v-tooltip="tooltipSetup('appSections.follow')" class="block__element">
                     <div class="element__content">
                         <IconFollow class="element__icon" />
-                        <span class="element__title">Follow</span>
+                        <span class="element__title">{{ $t('appSections.follow') }}</span>
                     </div>
                 </div>
-                <div class="block__element">
+                <div v-tooltip="tooltipSetup('appSections.founds')" class="block__element">
                     <div class="element__content">
                         <IconWallet class="element__icon" />
-                        <span class="element__title">Founds</span>
+                        <span class="element__title">{{ $t('appSections.founds') }}</span>
                     </div>
                 </div>
-                <div class="block__element">
+                <div v-tooltip="tooltipSetup('appSections.yourProfile')" class="block__element">
                     <div class="element__content">
                         <IconProfile class="element__icon" />
-                        <span class="element__title">You profile</span>
+                        <span class="element__title">{{ $t('appSections.yourProfile') }}</span>
                     </div>
                 </div>
             </div>
 
             <div class="container_block">
-                <div class="block__element">
+                <div v-tooltip="tooltipSetup('appSections.settings')" class="block__element">
                     <div class="element__content">
                         <IconSettings class="element__icon" />
-                        <span class="element__title">Settings</span>
+                        <span class="element__title">{{ $t('appSections.settings') }}</span>
                     </div>
                 </div>
-                <div class="block__element">
+                <div v-tooltip="tooltipSetup('appSections.whatsNew')" class="block__element">
                     <div class="element__content">
                         <IconNew class="element__icon" />
-                        <span class="element__title">What's new</span>
+                        <span class="element__title">{{ $t('appSections.whatsNew') }}</span>
                     </div>
                 </div>
-                <div class="block__element">
+                <div v-tooltip="tooltipSetup('appSections.logout')" class="block__element">
                     <div class="element__content">
                         <IconLogout class="element__icon" />
-                        <span class="element__title">Logout</span>
+                        <span class="element__title">{{ $t('appSections.logout') }}</span>
                     </div>
                 </div>
             </div>
@@ -123,7 +123,7 @@
 <script setup lang="ts">
 import { vTooltip } from 'floating-vue';
 
-const { locale } = useI18n();
+const { locale, t } = useI18n();
 const { nickname, username, toggleUnsafeContentAllowed } = useUser();
 const { switchTheme } = useTheme();
 const isExpanded = useCookie('is-menu-expanded', { default: () => ref<boolean>(false) });
@@ -131,6 +131,15 @@ const isExpanded = useCookie('is-menu-expanded', { default: () => ref<boolean>(f
 const handleToggleExpanded = () => {
     isExpanded.value = !isExpanded.value;
 };
+
+const tooltipSetup = (tKey: string) => ({
+    content: t(tKey),
+    disabled: isExpanded,
+    placement: 'right',
+    triggers: ['hover'],
+    distance: 20,
+    theme: 'small-tooltip',
+});
 </script>
 
 <style scoped>
