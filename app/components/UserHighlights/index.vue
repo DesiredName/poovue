@@ -19,19 +19,32 @@
             </div>
 
             <div class="controls">
-                controls
+                <ElementDotz
+                    :dotz="dotz"
+                    :active="active"
+                    @next="handleNextDot"
+                />
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
+const gridRows = 3;
+
 const { $hammer } = useNuxtApp();
+
 const swipeable = useTemplateRef<HTMLElement | null>('swipeable');
 let swipeGrid: HammerManager | null = null;
+
 const { data } = await useFetch<UserHighlight[]>(
     '/api/highlights',
+    {
+        transform: (d) => { console.log(1); return d; },
+    },
 );
+const dotz = ref<number>(data.value ? Math.ceil(data.value.length / gridRows) : 1);
+const active = ref<number>(1);
 
 onMounted(async () => {
     await nextTick();
@@ -47,6 +60,10 @@ onMounted(async () => {
 onBeforeUnmount(() => {
     swipeGrid?.destroy?.();
 });
+
+const handleNextDot = (idx: number) => {
+    active.value = idx;
+};
 </script>
 
 <style scoped>
@@ -68,5 +85,9 @@ onBeforeUnmount(() => {
 
 .highlights .content .cards-grid {
 	@apply grid grid-cols-[repeat(2,1fr)] grid-rows-[repeat(3,auto)] gap-2;
+}
+
+.highlights .controls {
+	@apply w-full;
 }
 </style>

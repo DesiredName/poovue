@@ -21,13 +21,21 @@
             </div>
 
             <div class="container_block flex-1">
-                <div v-tooltip="tooltipSetup('appSections.home')" class="block__element">
+                <div
+                    v-tooltip="tooltipSetup('appSections.home')"
+                    class="block__element"
+                    @click="$router.push(WellKnownRoutes.HOME)"
+                >
                     <div class="element__content">
                         <IconHome class="element__icon" />
                         <span class="element__title">{{$t('appSections.home')}}</span>
                     </div>
                 </div>
-                <div v-tooltip="tooltipSetup('appSections.discover')" class="block__element">
+                <div
+                    v-tooltip="tooltipSetup('appSections.discover')"
+                    class="block__element"
+                    @click="$router.push(WellKnownRoutes.DISCOVER)"
+                >
                     <div class="element__content">
                         <IconSearch class="element__icon" />
                         <span class="element__title">{{ $t('appSections.discover') }}</span>
@@ -122,6 +130,7 @@
 
 <script setup lang="ts">
 import { vTooltip } from 'floating-vue';
+import { WellKnownRoutes } from '~/constants';
 
 const { locale, t } = useI18n();
 const { nickname, username, toggleUnsafeContentAllowed } = useUser();
