@@ -5,6 +5,7 @@
         width="24"
         height="24"
         viewBox="0 0 513 342"
+        style="pointer-events: none !important;"
         v-bind="$attrs"
     >
         <path fill="#FFF" d="M0 0h513v342H0z" />
@@ -21,13 +22,13 @@
         </g>
     </svg>
 
-
     <svg
         v-if="countryCode === 'ru'"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
         viewBox="0 85.333 512 341.333"
+        style="pointer-events: none !important;"
         v-bind="$attrs"
     >
         <path fill="#FFF" d="M0 85.33v341.332h512V85.33z"/>
@@ -36,14 +37,13 @@
         <path fill="#D80027" d="M0 312.884h512v113.775H0z"/>
     </svg>
 
-
     <svg
         v-if="countryCode === 'cz'"
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
         viewBox="0 0 513 342"
-        style="pointer-events: none;"
+        style="pointer-events: none !important;"
         v-bind="$attrs"
     >
         <path fill="#11457e" d="M0 0h513v342H0z"/>

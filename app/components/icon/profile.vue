@@ -5,7 +5,8 @@
         width="24"
         viewBox="0 0 24 24"
         fill="currentColor"
-        style="pointer-events: none;"
+        style="pointer-events: none !important;"
+        v-bind="$attrs"
     >
         <g>
             <path
