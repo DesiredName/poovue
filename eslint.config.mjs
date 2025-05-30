@@ -12,6 +12,10 @@ export default withNuxt({
         '@stylistic/quotes': ['error', 'single'],
         '@stylistic/comma-dangle': ['error', 'always-multiline'],
         'vue/html-indent': ['error', 4],
-        'vue/script-indent': ['error', 4],
+        'vue/script-indent': ['error', 4, {
+            'baseIndent': 0,
+            'switchCase': 1,
+            'ignores': [],
+        }],
     },
 });

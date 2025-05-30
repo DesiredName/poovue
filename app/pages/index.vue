@@ -1,19 +1,15 @@
 <!-- Landing page view -->
 <template>
     <div>
-        landing page
-
-        <Dropdown :triggers="['click']">
-            <div class="size-10">testsss</div>
-            <template #popper>
-                test
-            </template>
-        </Dropdown>
+        <ElementLocaleSelector>
+            <IconFlag class="size-4" :country-code="locale" />
+        </ElementLocaleSelector>
     </div>
 </template>
 
 <script setup lang="ts">
-import { Dropdown } from 'floating-vue';
+const { locale } = useI18n();
+
 definePageMeta({
     layout: 'landing',
 });

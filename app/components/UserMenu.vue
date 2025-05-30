@@ -108,11 +108,13 @@
                         <IconEye class="size-4" />
                     </div>
                 </div>
-                <div class="block__element">
-                    <div class="footer__element">
-                        <IconFlag class="size-4" :country-code="locale" />
+                <ElementLocaleSelector class="rounded-md w-8">
+                    <div class="block__element">
+                        <div class="footer__element">
+                            <IconFlag class="size-4" :country-code="locale" />
+                        </div>
                     </div>
-                </div>
+                </ElementLocaleSelector>
             </div>
         </div>
     </div>

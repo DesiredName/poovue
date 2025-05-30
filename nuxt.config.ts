@@ -29,9 +29,9 @@ export default defineNuxtConfig({
     i18n: {
         bundle: { optimizeTranslationDirective: false },
         locales: [
-            { code: 'us', name: 'US', language: 'en-US', file: 'en-US.ts' },
-            { code: 'ru', name: 'RU', language: 'ru-RU', file: 'ru-RU.ts' },
-            { code: 'cz', name: 'CZ', language: 'cs-CZ', file: 'cs-CZ.ts' },
+            { code: 'us', name: 'English', language: 'en-US', file: 'en-US.ts' },
+            { code: 'ru', name: 'Russian', language: 'ru-RU', file: 'ru-RU.ts' },
+            { code: 'cz', name: 'Czech', language: 'cs-CZ', file: 'cs-CZ.ts' },
         ],
         defaultLocale: 'us',
         strategy: 'no_prefix',
