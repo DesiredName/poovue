@@ -5,6 +5,7 @@ export default <Partial<Config>>{
         extend: {
             fontFamily: {
                 sans: ['Roboto', 'sans-serif'],
+                oswald: ['Oswald', 'sans'],
             },
             colors: {
                 'primary': 'var(--color-primary)',

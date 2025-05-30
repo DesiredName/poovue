@@ -21,6 +21,7 @@ export default defineNuxtConfig({
     googleFonts: {
         families: {
             Roboto: true,
+            Oswald: true,
         },
         download: true,
         overwriting: true,

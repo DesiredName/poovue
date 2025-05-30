@@ -153,7 +153,7 @@ const handleToggleExpanded = () => {
 }
 
 .user-menu__container {
-	@apply flex flex-col items-center justify-start flex-1 bg-primary px-2 rounded-lg;
+	@apply flex flex-col items-center justify-start flex-1 bg-primary px-2 rounded-xl;
 }
 
 /*  */
