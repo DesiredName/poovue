@@ -10,8 +10,8 @@
             <div class="content">
                 <div class="cards-grid">
                     <UserHighlightsCard
-                        v-for="card in data"
-                        :key="card.username"
+                        v-for="(card, idx) in data"
+                        :key="`${card.username}.${idx}`"
                         class="card"
                         :card="card"
                     />
@@ -26,19 +26,18 @@
 </template>
 
 <script setup lang="ts">
-const { data } = await useAsyncData(
-    'mountains',
-    () => $fetch<UserHighlight[]>('/api/highlights'),
+const { data } = await useFetch<UserHighlight[]>(
+    '/api/highlights',
 );
 </script>
 
 <style scoped>
 .highlights {
-	@apply flex flex-col p-2 h-full relative;
+	@apply flex flex-col p-2 h-full relative select-none;
 }
 
 .highlights__container {
-	@apply flex flex-col items-center justify-stretch bg-primary rounded-xl p-4 w-80;
+	@apply flex flex-col items-center justify-stretch gap-4 bg-primary rounded-xl p-4 w-80;
 }
 
 .highlights .title {
@@ -51,9 +50,5 @@ const { data } = await useAsyncData(
 
 .highlights .content .cards-grid {
 	@apply grid grid-cols-[repeat(2,1fr)] grid-rows-[repeat(3,auto)] gap-2;
-}
-
-.highlights .content .cards-grid .card {
-	@apply overflow-hidden w-72 h-32 rounded-xl;
 }
 </style>

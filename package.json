@@ -13,18 +13,18 @@
   "dependencies": {
     "@nuxt/eslint": "1.4.1",
     "@nuxt/image": "1.10.0",
-    "@nuxtjs/google-fonts": "^3.2.0",
+    "@nuxtjs/google-fonts": "3.2.0",
     "@nuxtjs/i18n": "9.5.4",
-    "@nuxtjs/tailwindcss": "^6.13.2",
-    "country-flag-icons": "^1.5.19",
+    "@nuxtjs/tailwindcss": "6.13.2",
+    "country-flag-icons": "1.5.19",
     "eslint": "9.27.0",
-    "floating-vue": "^5.2.2",
+    "floating-vue": "5.2.2",
     "nuxt": "3.17.4",
     "vue": "3.5.14",
     "vue-router": "4.5.1"
   },
   "devDependencies": {
     "@stylistic/eslint-plugin": "4.4.0",
-    "@types/country-flag-icons": "^1.2.2"
+    "@types/country-flag-icons": "1.2.2"
   }
 }
