@@ -1,6 +1,6 @@
 declare type UserHighlight = {
     avatar: string;
-    background: string;
+    backgroundImage: string;
     username: string;
     nickname: string;
 };

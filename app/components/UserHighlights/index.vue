@@ -7,7 +7,7 @@
                 </div>
             </div>
 
-            <div class="content">
+            <div ref="swipeable" class="content">
                 <div class="cards-grid">
                     <UserHighlightsCard
                         v-for="(card, idx) in data"
@@ -26,9 +26,27 @@
 </template>
 
 <script setup lang="ts">
+const { $hammer } = useNuxtApp();
+const swipeable = useTemplateRef<HTMLElement | null>('swipeable');
+let swipeGrid: HammerManager | null = null;
 const { data } = await useFetch<UserHighlight[]>(
     '/api/highlights',
 );
+
+onMounted(async () => {
+    await nextTick();
+
+    if (swipeable.value != null) {
+        swipeGrid = $hammer(swipeable.value);
+        swipeGrid.on('swipe', (e) => {
+            console.log(e);
+        });
+    }
+});
+
+onBeforeUnmount(() => {
+    swipeGrid?.destroy?.();
+});
 </script>
 
 <style scoped>

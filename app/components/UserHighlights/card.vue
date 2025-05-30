@@ -1,7 +1,7 @@
 <template>
     <div
         :style="{
-            backgroundImage: `url('${card?.background}')`
+            backgroundImage: `url('${card?.backgroundImage}')`
         }"
         class="user-highlight-card"
     >
