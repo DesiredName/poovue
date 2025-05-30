@@ -51,7 +51,7 @@ onBeforeUnmount(() => {
 
 <style scoped>
 .highlights {
-	@apply flex flex-col p-2 h-full relative select-none;
+	@apply flex flex-col h-full relative select-none;
 }
 
 .highlights__container {

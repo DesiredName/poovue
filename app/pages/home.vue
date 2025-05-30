@@ -26,7 +26,7 @@ definePageMeta({
 
 <style scoped>
 .section_home {
-	@apply h-full p-2;
+	@apply flex flex-col h-full relative;
 }
 
 .section_home__container {

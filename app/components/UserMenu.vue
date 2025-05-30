@@ -144,7 +144,7 @@ const tooltipSetup = (tKey: string) => ({
 
 <style scoped>
 .user-menu {
-	@apply flex flex-col p-2 h-full relative;
+	@apply flex flex-col h-full relative;
 }
 
 .user-menu:hover .user-menu__expand {

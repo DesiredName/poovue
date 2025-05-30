@@ -30,7 +30,7 @@ useHead({
 });
 </script>
 
-<style >
+<style>
 .body__page-layout-container {
 	@apply bg-secondary text-text fixed inset-0 overflow-hidden ;
 }
@@ -40,15 +40,15 @@ useHead({
 }
 
 .body__page-layout-container .page-layout .page-layout__user-menu__desktop {
-	@apply hidden xl:block;
+	@apply hidden xl:block py-2 px-1;
 }
 
 .body__page-layout-container .page-layout .page-layout__content {
-	@apply flex-1 min-h-0;
+	@apply flex-1 min-h-0 py-2 px-1;
 }
 
 .body__page-layout-container .page-layout .page-layout__highlights {
-	@apply hidden xl:block;
+	@apply hidden xl:block py-2 px-1;
 }
 
 .body__page-layout-container .page-layout .page-layout__user-menu__compact {
