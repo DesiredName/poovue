@@ -36,7 +36,7 @@ useHead({
 }
 
 .body__page-layout-container .page-layout {
-	@apply fixed inset-0 flex flex-col xl:flex-row gap-0 xl:gap-4;
+	@apply fixed inset-0 flex flex-col xl:flex-row gap-0;
 }
 
 .body__page-layout-container .page-layout .page-layout__user-menu__desktop {

@@ -11,4 +11,8 @@ const username = route.params.username as string;
 useHead({
     title: username,
 });
+
+definePageMeta({
+    layout: 'app',
+});
 </script>
