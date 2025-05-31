@@ -37,7 +37,7 @@ const { $hammer } = useNuxtApp();
 const swipeable = useTemplateRef<HTMLElement | null>('swipeable');
 let swipeGrid: HammerManager | null = null;
 
-const { data: gridItems } = await useFetch<UserHighlight[]>('/api/highlights?count=6');
+const { data: gridItems } = await useFetch<UserHighlight[]>(UserHighlightsURL(6));
 const gridRows = ref<number>(3);
 const gridCols = ref<number>((gridItems.value ? Math.ceil(gridItems.value.length / gridRows.value) : 1));
 const activeCol = ref<number>(1);

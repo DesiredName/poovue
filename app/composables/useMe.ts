@@ -1,8 +1,7 @@
+import { MeDataURL } from '~/utils/network';
 
-export default async function useUser(id: number) {
-    const side = import.meta.client ? 'client' : 'server';
-
-    const { data } = await useFetch(`/api/me?id=${id}&s=${side}`, {
+export default async function useMe() {
+    const { data } = await useFetch<Me>(MeDataURL(), {
         key: 'my-profile-data',
         getCachedData(key, nuxtApp) {
             return nuxtApp.payload.data[key] || nuxtApp.static.data[key];

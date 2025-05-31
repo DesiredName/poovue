@@ -7,7 +7,7 @@
 </template>
 
 <script setup lang="ts">
-const user = await useUser(2);
+const user = await useMe();
 </script>
 
 <style>
