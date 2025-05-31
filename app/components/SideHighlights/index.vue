@@ -9,7 +9,7 @@
 
             <div ref="swipeable" class="content">
                 <div class="cards-grid">
-                    <UserHighlightsCard
+                    <SideHighlightsCard
                         v-for="(card, idx) in gridItems"
                         :key="`${card.username}.${idx}`"
                         class="card"

@@ -9,7 +9,7 @@
         </div>
 
         <div class="page-layout__highlights">
-            <UserHighlights />
+            <SideHighlights />
         </div>
 
         <div class="page-layout__user-menu__compact">

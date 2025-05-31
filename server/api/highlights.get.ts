@@ -1,7 +1,8 @@
-import usersTable from './../users.table.js';
+import tryExecute from '~~/server/utils/try';
+import usersTable from '~~/server/users.table.js';
 
 export default defineEventHandler(async (event) => {
-    try {
+    return await tryExecute<UserHighlight[]>(async () => {
         const query = await getValidatedQuery(event, (raw) => {
             const params = raw as Record<string, unknown>;
             const count = parseInt((params['count'] as string), 10);
@@ -13,8 +14,5 @@ export default defineEventHandler(async (event) => {
         });
 
         return usersTable.slice(0, query.count);
-    } catch (ex) {
-        console.error(ex);
-        throw createError({ statusCode: 422 });
-    }
+    });
 });

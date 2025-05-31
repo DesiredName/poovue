@@ -133,7 +133,7 @@ import { vTooltip } from 'floating-vue';
 import { WellKnownRoutes } from '~/constants';
 
 const { locale, t } = useI18n();
-const { nickname, username, toggleUnsafeContentAllowed } = useUser();
+const { nickname, username, toggleUnsafeContentAllowed } = await useUser(1);
 const { switchTheme } = useTheme();
 const isExpanded = useCookie('is-menu-expanded', { default: () => ref<boolean>(false) });
 

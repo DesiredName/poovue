@@ -40,4 +40,12 @@ const h6: UserHighlight =  {
     username: 'isu',
 };
 
+export const me: Me = {
+    avatar: '/users/93068-858-ffe3d/4ZUkWo05i8-zkiePLg0kD.webp',
+    backgroundImage: '/users/93068-858-ffe3d/OIP-3077709981.jpg',
+    nickname: 'olddude',
+    username: 'Old Dude',
+    isUnsafeContentAllowed: true,
+};
+
 export default [h1,h2,h3,h4,h5,h6];

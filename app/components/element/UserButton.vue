@@ -1,14 +1,13 @@
 <template>
     <span class="element_user-button">
         <span>
-            {{ abbr }}
+            {{ user.shortname }}
         </span>
     </span>
 </template>
 
 <script setup lang="ts">
-const user = useUser();
-const abbr = user.username.value.split(/\s/).map(word=>word.charAt(0)).join('');
+const user = await useUser(2);
 </script>
 
 <style>

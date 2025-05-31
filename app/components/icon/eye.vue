@@ -45,5 +45,5 @@
 </template>
 
 <script setup lang="ts">
-const { isUnsafeContentAllowed } = useUser();
+const { isUnsafeContentAllowed } = await useUser(3);
 </script>

@@ -1,20 +1,33 @@
-const isLoggedIn = ref(false);
 
-const username = ref<string>('Old Dude');
-const nickname = ref<string>('@old_dude');
-const isUnsafeContentAllowed = ref<boolean>(false);
+export default async function useUser(id: number) {
+    const side = import.meta.client ? 'client' : 'server';
 
-export default function useUser() {
+    const { data } = await useFetch(`/api/me?id=${id}&s=${side}`, {
+        key: 'my-profile-data',
+        getCachedData(key, nuxtApp) {
+            return nuxtApp.payload.data[key] || nuxtApp.static.data[key];
+        },
+    });
+
+    const me = ref<Me | null>(data.value ?? null);
+    const isLoggedIn = computed(() => me.value != null);
+
     const toggleUnsafeContentAllowed = () => {
-        isUnsafeContentAllowed.value = !isUnsafeContentAllowed.value;
+        if (me.value) {
+            me.value.isUnsafeContentAllowed = !me.value.isUnsafeContentAllowed;
+        }
     };
 
     return {
         isLoggedIn,
-        isUnsafeContentAllowed,
+        isUnsafeContentAllowed: me.value?.isUnsafeContentAllowed === true,
 
-        username,
-        nickname,
+        avatarURL: '',
+        backgrgroundURL: '',
+
+        username: me.value?.username ?? 'N/A',
+        nickname: me.value?.nickname ?? 'N/A',
+        shortname: (v => v.split(/\s/).map(word => word.charAt(0)).join(''))(me.value?.username ?? 'N/A'),
 
         toggleUnsafeContentAllowed,
     };
