@@ -14,6 +14,7 @@ export default <Partial<Config>>{
                 'highlight': 'var(--color-highlight)',
                 'highlight-text': 'var(--color-highlight-text)',
                 'active-element': 'var(--color-active-element)',
+                'accent': 'var(--color-accent)',
 
                 'brand-primary': 'var(--color-brand-primary)',
                 'brand-secondary': 'var(--color-brand-secondary)',

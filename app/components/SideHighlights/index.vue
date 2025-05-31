@@ -10,10 +10,10 @@
             <div ref="swipeable" class="content">
                 <div class="cards-grid">
                     <SideHighlightsCard
-                        v-for="(card, idx) in gridItems"
-                        :key="`${card.username}.${idx}`"
+                        v-for="(item, idx) in gridItems"
+                        :key="`${item.username}.${idx}`"
                         class="card"
-                        :card="card"
+                        :card="item"
                     />
                 </div>
             </div>

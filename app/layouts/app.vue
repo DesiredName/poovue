@@ -44,7 +44,7 @@ useHead({
 }
 
 .body__page-layout-container .page-layout .page-layout__content {
-	@apply flex-1 min-h-0 p-0 xl:py-2 xl:px-1;
+	@apply flex-1 min-h-0 p-0 xl:py-2 xl:px-1 overflow-x-hidden overflow-y-scroll;
 }
 
 .body__page-layout-container .page-layout .page-layout__highlights {

@@ -1,7 +1,7 @@
 <template>
     <div
         :style="{
-            backgroundImage: `url('${card?.backgroundImage}')`
+            backgroundImage: `url('${card.highlightImage}')`
         }"
         class="user-highlight-card"
     >
@@ -11,20 +11,20 @@
             </button>
         </div>
         <div class="card-title">
-            <div class="text text-sm">{{  card?.username }}</div>
-            <div class="text text-xs">{{ card?.nickname }}</div>
+            <div class="text text-sm">{{ card.username }}</div>
+            <div class="text text-xs">{{ card.nickname }}</div>
         </div>
         <div
             class="card-avatar"
             :style="{
-                backgroundImage: `url('${card?.avatar}')`
+                backgroundImage: `url('${card.avatar}')`
             }"
         />
     </div>
 </template>
 
 <script setup lang="ts">
-defineProps<{ card?: UserHighlight }>();
+defineProps<{ card: UserHighlight }>();
 </script>
 
 <style scoped>

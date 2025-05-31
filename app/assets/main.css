@@ -16,6 +16,7 @@
     --color-highlight: #cccccccc;
     --color-highlight-text: blue;
     --color-active-element: rgba(73, 242, 100, 0.2);
+    --color-accent: rgb(74, 239, 108);
 }
 
 :root[app-theme='dark'] {
@@ -25,6 +26,7 @@
     --color-highlight: #cccccc86;
     --color-highlight-text: blue;
     --color-active-element: rgba(73, 242, 100, 0.2);
+    --color-accent: rgb(74, 239, 108);
 }
 
 /* Landing page colors */
