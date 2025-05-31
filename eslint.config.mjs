@@ -17,5 +17,6 @@ export default withNuxt({
             'switchCase': 1,
             'ignores': [],
         }],
+        '@typescript-eslint/no-explicit-any': ['warn'],
     },
 });

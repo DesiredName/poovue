@@ -15,6 +15,8 @@
 </template>
 
 <script setup lang="ts">
+import InRangeValue from '~/utils/inRangeValue';
+
 const props = defineProps<{
     dotz: number,
     active?: number
@@ -25,9 +27,7 @@ const emits = defineEmits<{
 
 const handleNextDot = (delta: -1 | 1) => {
     const next = (props.active ?? 0) + delta;
-    const idx = next < 1
-        ? props.dotz
-        : next > props.dotz ? 1 : next;
+    const idx = InRangeValue(next, 1, props.dotz);
 
     emits('next', idx);
 };

@@ -10,7 +10,7 @@
             <div ref="swipeable" class="content">
                 <div class="cards-grid">
                     <UserHighlightsCard
-                        v-for="(card, idx) in data"
+                        v-for="(card, idx) in gridItems"
                         :key="`${card.username}.${idx}`"
                         class="card"
                         :card="card"
@@ -20,8 +20,8 @@
 
             <div class="controls">
                 <ElementDotz
-                    :dotz="dotz"
-                    :active="active"
+                    :dotz="gridCols"
+                    :active="activeCol"
                     @next="handleNextDot"
                 />
             </div>
@@ -30,21 +30,17 @@
 </template>
 
 <script setup lang="ts">
-const gridRows = 3;
+import InRangeValue from '~/utils/inRangeValue';
 
 const { $hammer } = useNuxtApp();
 
 const swipeable = useTemplateRef<HTMLElement | null>('swipeable');
 let swipeGrid: HammerManager | null = null;
 
-const { data } = await useFetch<UserHighlight[]>(
-    '/api/highlights',
-    {
-        transform: (d) => { console.log(1); return d; },
-    },
-);
-const dotz = ref<number>(data.value ? Math.ceil(data.value.length / gridRows) : 1);
-const active = ref<number>(1);
+const { data: gridItems } = await useFetch<UserHighlight[]>('/api/highlights?count=6');
+const gridRows = ref<number>(3);
+const gridCols = ref<number>((gridItems.value ? Math.ceil(gridItems.value.length / gridRows.value) : 1));
+const activeCol = ref<number>(1);
 
 onMounted(async () => {
     await nextTick();
@@ -52,7 +48,11 @@ onMounted(async () => {
     if (swipeable.value != null) {
         swipeGrid = $hammer(swipeable.value);
         swipeGrid.on('swipe', (e) => {
-            console.log(e);
+            const delta = (e.direction  === 2 /** HAMMER.DIRECTION_LEFT */ ? 1 : -1);
+            const next = activeCol.value + delta;
+            const idx = InRangeValue(next, 1, gridCols.value, false);
+
+            handleNextDot(idx);
         });
     }
 });
@@ -62,7 +62,16 @@ onBeforeUnmount(() => {
 });
 
 const handleNextDot = (idx: number) => {
-    active.value = idx;
+    activeCol.value = idx;
+
+    if (swipeable.value) {
+        // NOTE: idx -> [1,...,gridCols]
+        const child = swipeable.value.children[0]?.children?.[idx - 1];
+
+        if (child) {
+            child.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
 };
 </script>
 
@@ -84,7 +93,7 @@ const handleNextDot = (idx: number) => {
 }
 
 .highlights .content .cards-grid {
-	@apply grid grid-cols-[repeat(2,1fr)] grid-rows-[repeat(3,auto)] gap-2;
+	@apply grid grid-cols-[repeat(v-bind('gridCols'),1fr)] grid-rows-[repeat(v-bind('gridRows'),auto)] gap-2;
 }
 
 .highlights .controls {
