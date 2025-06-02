@@ -5,10 +5,10 @@
         <div
             class="card-content"
             :style="{
-                backgroundImage: `url('${card?.discoverImage}')`,
+                backgroundImage: `url('${card.discoverImage}')`,
             }"
         >
-            <div v-if="card" class="card-title">
+            <div class="card-title">
                 <div class="name">{{ card.username }}</div>
                 <div class="short-description">{{ card.shortDescription }}</div>
             </div>
@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 defineProps<{
-    card?: UserHighlight,
+    card: UserHighlight,
 }>();
 </script>
 
@@ -29,7 +29,7 @@ defineProps<{
 
 .user-highlight-card .card-content {
 	@apply relative rounded-md w-full h-full bg-cover bg-no-repeat bg-left-top bg-secondary;
-	@apply transition-transform duration-300;
+	@apply transition-transform duration-300 delay-150;
 }
 
 .user-highlight-card .card-content:hover {

@@ -9,7 +9,7 @@
             </div>
 
             <ClientOnly>
-                <div class="w-full flex mt-8 overflow-hidden">
+                <div ref="swipeable" class="w-full flex mt-8 overflow-hidden">
                     <Carousel
                         class="w-full"
                         :cards="cards"
@@ -40,10 +40,12 @@
 </template>
 
 <script setup lang="ts">
+import InRangeValue from '~/utils/inRangeValue';
 import Carousel from './carousel.vue';
 import Placeholder from './placeholder.vue';
 
 const { t } = useI18n();
+const { $hammer } = useNuxtApp();
 
 useHead({
     title: t('appSections.discover'),
@@ -58,6 +60,8 @@ const cards = ref(data.value ?? []);
 const activeCardIdx = ref<number>(0);
 const cardAnimationDuration = ref(300);
 const isAnimating = ref(false);
+const swipeable = useTemplateRef<HTMLElement | null>('swipeable');
+let swiper: HammerManager | null = null;
 
 const handleNextIdx = (idx: number) => {
     if (isAnimating.value === true) {
@@ -87,6 +91,25 @@ const throttledNextIdx = (() => {
         timerId = window.setTimeout(() => timerId = undefined, cardAnimationDuration.value);
     };
 })();
+
+onMounted(async () => {
+    await nextTick();
+
+    if (swipeable.value != null) {
+        swiper = $hammer(swipeable.value);
+        swiper.on('swipe', (e) => {
+            const delta = (e.direction  === 2 /** HAMMER.DIRECTION_LEFT */ ? 1 : -1);
+            const nextIdx = activeCardIdx.value + delta;
+            const idx = InRangeValue(nextIdx, 0, cards.value.length - 1);
+
+            handleNextIdx(idx);
+        });
+    }
+});
+
+onBeforeUnmount(() => {
+    swiper?.destroy?.();
+});
 </script>
 
 <style scoped>

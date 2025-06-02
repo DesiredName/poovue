@@ -10,9 +10,9 @@
     >
         <Card
             v-for="({card, cardOffset}, idx) in carouselCards"
-            :id="`${card?.nickname}-${idx}`"
+            :id="`${card.nickname}-${idx}`"
             :ref="`card-${idx}`"
-            :key="`${card?.nickname}-${idx}`"
+            :key="`${card.nickname}-${idx}`"
             :style="{
                 transitionDuration: cardAnimationDuration + 'ms',
                 minWidth: cardWidth + 'px',
@@ -31,7 +31,7 @@ import Card from './card.vue';
 
 type SwapDirection = 'no-swap' | 'first-to-last-swap' | 'last-to-frist-swap';
 type CarouselCard = {
-    card?: UserHighlight,
+    card: UserHighlight,
     cardOffset?: number;
 };
 
@@ -170,8 +170,6 @@ const updateCarouselCards = () => {
     const cardsCount = cards.length;
 
     if (cardsCount === 0) {
-        carouselCards.value = new Array(numberOfDisplayedCards * 3);
-
         return;
     }
 

@@ -36,7 +36,7 @@ const h4: UserHighlight =  {
 
     nickname: 'Vanilla',
     username: 'vanilla 1993 ',
-    shortDescription: 'Sex Instructor',
+    shortDescription: 'Veni, vidi, vici',
 };
 
 const h5: UserHighlight =  {
@@ -46,7 +46,7 @@ const h5: UserHighlight =  {
 
     nickname: 'JohannaM',
     username: 'morava_mountain',
-    shortDescription: 'Sex Instructor',
+    shortDescription: 'Desperate Shopper',
 };
 
 const h6: UserHighlight =  {
@@ -56,7 +56,7 @@ const h6: UserHighlight =  {
 
     nickname: 'ISU',
     username: 'isu',
-    shortDescription: 'Sex Instructor',
+    shortDescription: 'You\'ll laught to death',
 };
 
 const h7: UserHighlight = {
@@ -66,7 +66,7 @@ const h7: UserHighlight = {
 
     nickname: 'Death Shadow',
     username: 'deathshadow',
-    shortDescription: 'Your Death Manager',
+    shortDescription: 'Your Accountant',
 };
 
 export default [h1,h2,h3,h4,h5,h6,h7];

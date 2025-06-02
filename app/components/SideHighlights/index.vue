@@ -35,7 +35,7 @@ import InRangeValue from '~/utils/inRangeValue';
 const { $hammer } = useNuxtApp();
 
 const swipeable = useTemplateRef<HTMLElement | null>('swipeable');
-let swipeGrid: HammerManager | null = null;
+let swiper: HammerManager | null = null;
 
 const { data: cards } = await useFetch<UserHighlight[]>(UserHighlightsURL(6));
 const gridRows = ref<number>(3);
@@ -46,8 +46,8 @@ onMounted(async () => {
     await nextTick();
 
     if (swipeable.value != null) {
-        swipeGrid = $hammer(swipeable.value);
-        swipeGrid.on('swipe', (e) => {
+        swiper = $hammer(swipeable.value);
+        swiper.on('swipe', (e) => {
             const delta = (e.direction  === 2 /** HAMMER.DIRECTION_LEFT */ ? 1 : -1);
             const nextIdx = activeCardIdx.value + delta;
             const idx = InRangeValue(nextIdx, 0, gridCols.value - 1, false);
@@ -58,7 +58,7 @@ onMounted(async () => {
 });
 
 onBeforeUnmount(() => {
-    swipeGrid?.destroy?.();
+    swiper?.destroy?.();
 });
 
 const handleNextIdx = (idx: number) => {
