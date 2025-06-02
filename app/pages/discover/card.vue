@@ -1,6 +1,6 @@
 <template>
     <div
-        class="user-highlight-card w-[350px] h-[630px]"
+        class="user-highlight-card"
         :style="{
             backgroundImage: `url('${card.discoverImage}')`
         }"
@@ -13,7 +13,9 @@
 </template>
 
 <script setup lang="ts">
-defineProps<{ card: UserHighlight }>();
+defineProps<{
+    card: UserHighlight,
+}>();
 </script>
 
 <style scoped>

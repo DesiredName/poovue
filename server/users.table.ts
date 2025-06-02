@@ -15,7 +15,7 @@ const h2: UserHighlight =  {
     discoverImage: '/users/02302-112-ee93d/th-1650011434.jpg',
 
     nickname: 'mm',
-    username: 'Mishaka Milashka',
+    username: 'Mashka Milashka',
     shortDescription: 'HR & TikTop superstar',
 };
 
@@ -39,17 +39,6 @@ const h4: UserHighlight =  {
     shortDescription: 'Sex Instructor',
 };
 
-export const me: Me = {
-    avatar: '/users/93068-858-ffe3d/4ZUkWo05i8-zkiePLg0kD.webp',
-    backgroundImage: '/users/93068-858-ffe3d/OIP-3077709981.jpg',
-
-    nickname: 'olddude',
-    username: 'Old Dude',
-    shortDescription: 'Sex Instructor',
-
-    isUnsafeContentAllowed: true,
-};
-
 const h5: UserHighlight =  {
     avatar: '/users/94754-366-7a43e/th-751499544.jpg',
     highlightImage: '/users/94754-366-7a43e/th-1657683960.jpg',
@@ -69,4 +58,26 @@ const h6: UserHighlight =  {
     username: 'isu',
     shortDescription: 'Sex Instructor',
 };
-export default [h1,h2,h3,h4,h5,h6];
+
+const h7: UserHighlight = {
+    avatar: '/users/93068-858-ffe3d/4ZUkWo05i8-zkiePLg0kD.webp',
+    highlightImage: '/users/93068-858-ffe3d/OIP-3077709981.jpg',
+    discoverImage: '/users/93068-858-ffe3d/OIP-287931983.jpg',
+
+    nickname: 'Death Shadow',
+    username: 'deathshadow',
+    shortDescription: 'Your Death Manager',
+};
+
+export default [h1,h2,h3,h4,h5,h6,h7];
+
+export const me: Me = {
+    avatar: '/users/93068-858-ffe3d/4ZUkWo05i8-zkiePLg0kD.webp',
+    backgroundImage: '/users/93068-858-ffe3d/OIP-3077709981.jpg',
+
+    nickname: 'olddude',
+    username: 'Old Dude',
+    shortDescription: 'Sex Instructor',
+
+    isUnsafeContentAllowed: true,
+};

@@ -10,10 +10,10 @@
             <div ref="swipeable" class="content">
                 <div class="cards-grid">
                     <SideHighlightsCard
-                        v-for="(item, idx) in gridItems"
-                        :key="`${item.username}.${idx}`"
+                        v-for="(card, idx) in cards"
+                        :key="`${card.username}.${idx}`"
                         class="card"
-                        :card="item"
+                        :card="card"
                     />
                 </div>
             </div>
@@ -21,8 +21,8 @@
             <div class="controls">
                 <ElementDotz
                     :dotz="gridCols"
-                    :active="activeCol"
-                    @next="handleNextDot"
+                    :active="activeCardIdx"
+                    @next="handleNextIdx"
                 />
             </div>
         </div>
@@ -37,10 +37,10 @@ const { $hammer } = useNuxtApp();
 const swipeable = useTemplateRef<HTMLElement | null>('swipeable');
 let swipeGrid: HammerManager | null = null;
 
-const { data: gridItems } = await useFetch<UserHighlight[]>(UserHighlightsURL(6));
+const { data: cards } = await useFetch<UserHighlight[]>(UserHighlightsURL(6));
 const gridRows = ref<number>(3);
-const gridCols = ref<number>((gridItems.value ? Math.ceil(gridItems.value.length / gridRows.value) : 1));
-const activeCol = ref<number>(1);
+const gridCols = ref<number>((cards.value ? Math.ceil(cards.value.length / gridRows.value) : 1));
+const activeCardIdx = ref<number>(0);
 
 onMounted(async () => {
     await nextTick();
@@ -49,10 +49,10 @@ onMounted(async () => {
         swipeGrid = $hammer(swipeable.value);
         swipeGrid.on('swipe', (e) => {
             const delta = (e.direction  === 2 /** HAMMER.DIRECTION_LEFT */ ? 1 : -1);
-            const next = activeCol.value + delta;
-            const idx = InRangeValue(next, 1, gridCols.value, false);
+            const nextIdx = activeCardIdx.value + delta;
+            const idx = InRangeValue(nextIdx, 0, gridCols.value - 1, false);
 
-            handleNextDot(idx);
+            handleNextIdx(idx);
         });
     }
 });
@@ -61,12 +61,11 @@ onBeforeUnmount(() => {
     swipeGrid?.destroy?.();
 });
 
-const handleNextDot = (idx: number) => {
-    activeCol.value = idx;
+const handleNextIdx = (idx: number) => {
+    activeCardIdx.value = idx;
 
     if (swipeable.value) {
-        // NOTE: idx -> [1,...,gridCols]
-        const child = swipeable.value.children[0]?.children?.[idx - 1];
+        const child = swipeable.value.children[0]?.children?.[idx];
 
         if (child) {
             child.scrollIntoView({ behavior: 'smooth' });

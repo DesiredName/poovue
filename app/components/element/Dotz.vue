@@ -6,7 +6,7 @@
         <div
             v-for="dot in dotz"
             :key="dot"
-            :class="{ 'dot': true, 'is-active': dot === active}"
+            :class="{ 'dot': true, 'is-active': (dot - 1) === active}"
         />
         <div class="arrow right" @click="handleNextDot(1)">
             <IconChevron class="w-6" />
@@ -27,7 +27,7 @@ const emits = defineEmits<{
 
 const handleNextDot = (delta: -1 | 1) => {
     const next = (props.active ?? 0) + delta;
-    const idx = InRangeValue(next, 1, props.dotz);
+    const idx = InRangeValue(next, 0, props.dotz - 1);
 
     emits('next', idx);
 };

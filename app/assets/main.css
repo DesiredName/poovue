@@ -5,7 +5,7 @@
 *::after,
 *::before {
     interpolate-size: allow-keywords;
-    scrollbar-width: thin;
+    scrollbar-width: none;
 }
 
 /* Themes */

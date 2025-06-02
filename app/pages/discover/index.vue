@@ -9,20 +9,22 @@
             </div>
 
             <div class="w-full flex mt-8 overflow-hidden">
-                <div class="flex flex-row flex-nowrap gap-4">
-                    <Card
-                        v-for="(card, idx) in gridItems"
-                        :key="`${card.nickname}-${idx}`"
-                        :card="card"
+                <ClientOnly>
+                    <Carousel
+                        class="w-full"
+                        :cards="cards"
+                        :active="activeCardIdx"
+                        :number-of-displayed-cards="3"
+                        @next="handleNextIdx"
                     />
-                </div>
+                </ClientOnly>
             </div>
 
             <div class="mt-4">
                 <ElementDotz
-                    :dotz="gridItems?.length ?? 0"
-                    :active="activeItemIdx"
-                    @next="handleNextDot"
+                    :dotz="cards.length"
+                    :active="activeCardIdx"
+                    @next="handleNextIdx"
                 />
             </div>
         </div>
@@ -30,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import Card from './card.vue';
+import Carousel from './carousel.vue';
 
 const { t } = useI18n();
 
@@ -42,11 +44,12 @@ definePageMeta({
     layout: 'app',
 });
 
-const { data: gridItems } = await useFetch<UserHighlight[]>(UserHighlightsURL(12));
-const activeItemIdx = ref<number>(1);
+const { data } = await useFetch<UserHighlight[]>(UserHighlightsURL(7));
+const cards = ref(data.value ?? []);
+const activeCardIdx = ref<number>(0);
 
-const handleNextDot = (idx: number) => {
-    activeItemIdx.value = idx;
+const handleNextIdx = (idx: number) => {
+    activeCardIdx.value = idx;
 
     // if (swipeable.value) {
     //     // NOTE: idx -> [1,...,gridCols]
