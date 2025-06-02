@@ -8,7 +8,8 @@
     "generate": "nuxt generate",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
-    "c": "git add . && git commit -m 'update'"
+    "c": "git add . && git commit -m 'update'",
+    "p": "npm version patch -git-tag-version false && git add . && git commit -m \"bump version\" && git push"
   },
   "dependencies": {
     "@nuxt/eslint": "1.4.1",
@@ -28,5 +29,6 @@
     "@stylistic/eslint-plugin": "4.4.0",
     "@types/country-flag-icons": "1.2.2",
     "@types/hammerjs": "2.0.46"
-  }
+  },
+  "version": "0.0.4"
 }
