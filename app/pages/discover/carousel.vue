@@ -20,7 +20,7 @@
                 transform: `translateX(${cardOffset ?? 0}px)`,
             }"
             :card="card"
-            class="transition-transform ease-in"
+            class="transition-transform ease-[cubic-bezier(.35,1,.8,1)]"
         />
     </div>
 </template>
