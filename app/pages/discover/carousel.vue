@@ -5,7 +5,7 @@
         :style="{
             height: cardHeight + 'px',
             minHeight: cardHeight + 'px',
-            transform: `translateX(-${carouseTotalOffset}px)`,
+            transform: `translateX(${carouseTotalOffset}px)`,
         }"
     >
         <Card
@@ -17,7 +17,7 @@
                 transitionDuration: cardAnimationDuration + 'ms',
                 minWidth: cardWidth + 'px',
                 minHeight: cardHeight + 'px',
-                transform: `translateX(-${cardOffset ?? 0}px)`,
+                transform: `translateX(${cardOffset ?? 0}px)`,
             }"
             :card="card"
             class="transition-transform"
@@ -102,42 +102,64 @@ const carouseTotalOffset = ref(0);
 
 let timerId: number | undefined;
 
-const rotateCarusel = (swapDirection: SwapDirection) => {
+const rotateCarousel = (
+    swapDirection: SwapDirection,
+    /**
+	 * We can programmatocally change active idx, number of swaps might be > 1.
+	 * Passing this value allows the carousel to swap as many cards as needed in
+	 * a loop.
+	 */
+    swapChanges: number,
+) => {
     emit('animating');
 
-    // carouselCards.value.forEach((card, idx) => {
-    //     card.cardOffset = carouseTotalOffset.value - (idx - 1) * cardWidth.value;
-    // });
+    let swaps = swapChanges;
+
+    const offset = swapDirection === 'no-swap'
+        ? 0
+        : (swapDirection === 'first-to-last-swap' ? -1 : 1) * cardWidth.value * swaps;
+
+    carouselCards.value.forEach(card => {
+        card.cardOffset = offset;
+    });
 
     clearTimeout(timerId);
-    timerId = window.setTimeout(() => {
-        switch (swapDirection) {
-            case 'first-to-last-swap': {
-                const card = carouselCards.value.shift()!;
-                carouselCards.value.push(card);
-                break;
-            }
 
-            case 'last-to-frist-swap': {
-                const card = carouselCards.value.pop()!;
-                carouselCards.value.unshift(card);
-                break;
-            }
+    timerId = window.setTimeout(async () => {
+        const newCardsArray: CarouselCard[] = Array.from(carouselCards.value);
+        while(swaps-- > 0) {
+            switch (swapDirection) {
+                case 'first-to-last-swap': {
+                    const card = newCardsArray.shift()!;
+                    newCardsArray.push(card);
+                    break;
+                }
 
-            case 'no-swap':
-            default:
-                break;
+                case 'last-to-frist-swap': {
+                    const card = newCardsArray.pop()!;
+                    newCardsArray.unshift(card);
+                    break;
+                }
+
+                case 'no-swap':
+                default:
+                    break;
+            }
         }
 
-        // carouselCards.value.forEach((card, idx) => {
-        //     card.cardOffset = carouseTotalOffset.value - idx * cardWidth.value;
-        // });
+        newCardsArray.forEach((card) => {
+            card.cardOffset = 0;
+        });
+
+        carouselCards.value = newCardsArray;
+
+        await nextTick();
 
         emit('finished');
     }, cardAnimationDuration);
 };
 
-const updateCaruselCards = () => {
+const updateCarouselCards = () => {
     const cardsCount = cards.length;
 
     if (cardsCount === 0) {return;}
@@ -151,7 +173,6 @@ const updateCaruselCards = () => {
     }
 
     carouselCards.value = newCardsArray;
-    carouseTotalOffset.value = (active + cards.length - Math.floor(numberOfDisplayedCards / 2) - sideCardsWidthRatio) * cardWidth.value;
 };
 
 const alterSize = (viewportSize: DOMRect) => {
@@ -160,6 +181,8 @@ const alterSize = (viewportSize: DOMRect) => {
 
     cardWidth.value = Math.floor(width / expectedRatio / 2) * 2; // make it even;
     cardHeight.value = cardHeightToWidthRatio * cardWidth.value;
+
+    carouseTotalOffset.value = -1 * (active + cards.length - Math.floor(numberOfDisplayedCards / 2) - sideCardsWidthRatio) * cardWidth.value;
 };
 
 let lastViewportSize: DOMRect = new DOMRect(0,0,0,0);
@@ -173,8 +196,8 @@ const updateState = () => {
     if (viewportSize.toJSON() != lastViewportSize.toJSON()) {
         lastViewportSize = viewportSize;
         alterSize(viewportSize);
-        updateCaruselCards();
-        rotateCarusel('no-swap');
+        updateCarouselCards();
+        rotateCarousel('no-swap', 0);
     }
 };
 
@@ -188,10 +211,11 @@ const debouncedUpdateState = (() => {
 })();
 
 watch(() => [cards], () => {
-    updateCaruselCards();
+    debouncedUpdateState();
 });
 
 watch(() => active, (newVal, oldVal) => {
+    let swapChanges: number = 1;
     let swapDirection: SwapDirection = 'no-swap';
 
     if (newVal === 0) {
@@ -200,6 +224,7 @@ watch(() => active, (newVal, oldVal) => {
         } else if (oldVal === cards.length - 1) {
             swapDirection='first-to-last-swap';
         } else {
+            swapChanges = Math.abs(newVal - oldVal);
             swapDirection = (newVal > oldVal) ? 'first-to-last-swap' : 'last-to-frist-swap';
         }
     } else if (oldVal === 0) {
@@ -208,13 +233,15 @@ watch(() => active, (newVal, oldVal) => {
         } else if (newVal === cards.length - 1) {
             swapDirection='last-to-frist-swap';
         } else {
+            swapChanges = Math.abs(newVal - oldVal);
             swapDirection = (newVal > oldVal) ? 'first-to-last-swap' : 'last-to-frist-swap';
         }
     } else {
+        swapChanges = Math.abs(newVal - oldVal);
         swapDirection = (newVal > oldVal) ? 'first-to-last-swap' : 'last-to-frist-swap';
     }
 
-    rotateCarusel(swapDirection);
+    rotateCarousel(swapDirection, swapChanges);
 });
 
 onMounted(() => {
