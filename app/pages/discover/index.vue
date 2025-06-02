@@ -8,8 +8,8 @@
                 </div>
             </div>
 
-            <div class="w-full flex mt-8 overflow-hidden">
-                <ClientOnly>
+            <ClientOnly>
+                <div class="w-full flex mt-8 overflow-hidden">
                     <Carousel
                         class="w-full"
                         :cards="cards"
@@ -20,22 +20,28 @@
                         @animating="isAnimating = true"
                         @finished="isAnimating = false"
                     />
-                </ClientOnly>
-            </div>
+                </div>
 
-            <div class="mt-4">
-                <ElementDotz
-                    :dotz="cards.length"
-                    :active="activeCardIdx"
-                    @next="throttledNextIdx"
-                />
-            </div>
+                <div class="mt-4">
+                    <ElementDotz
+                        :dotz="cards.length"
+                        :active="activeCardIdx"
+                        @next="throttledNextIdx"
+                    />
+                </div>
+
+                <template #fallback>
+                    <!-- this will be rendered on server side -->
+                    <Placeholder class="w-full min-h-96"/>
+                </template>
+            </ClientOnly>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 import Carousel from './carousel.vue';
+import Placeholder from './placeholder.vue';
 
 const { t } = useI18n();
 

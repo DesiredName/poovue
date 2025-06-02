@@ -10,9 +10,9 @@
     >
         <Card
             v-for="({card, cardOffset}, idx) in carouselCards"
-            :id="`${card.nickname}-${idx}`"
+            :id="`${card?.nickname}-${idx}`"
             :ref="`card-${idx}`"
-            :key="`${card.nickname}-${idx}`"
+            :key="`${card?.nickname}-${idx}`"
             :style="{
                 transitionDuration: cardAnimationDuration + 'ms',
                 minWidth: cardWidth + 'px',
@@ -31,7 +31,7 @@ import Card from './card.vue';
 
 type SwapDirection = 'no-swap' | 'first-to-last-swap' | 'last-to-frist-swap';
 type CarouselCard = {
-    card: UserHighlight,
+    card?: UserHighlight,
     cardOffset?: number;
 };
 
@@ -102,16 +102,23 @@ const carouseTotalOffset = ref(0);
 
 let timerId: number | undefined;
 
-const rotateCarousel = (
-    swapDirection: SwapDirection,
+const rotateCarousel = (options?: {
+    updateImmediately?: boolean;
+    swapDirection?: SwapDirection;
     /**
 	 * We can programmatocally change active idx, number of swaps might be > 1.
 	 * Passing this value allows the carousel to swap as many cards as needed in
 	 * a loop.
 	 */
-    swapChanges: number,
-) => {
+    swapChanges?: number;
+}) => {
     emit('animating');
+
+    const {
+        updateImmediately = false,
+        swapChanges = 1,
+        swapDirection = 'no-swap',
+    } = options ?? {};
 
     let swaps = swapChanges;
 
@@ -156,13 +163,17 @@ const rotateCarousel = (
         await nextTick();
 
         emit('finished');
-    }, cardAnimationDuration);
+    }, updateImmediately ? 0 : cardAnimationDuration);
 };
 
 const updateCarouselCards = () => {
     const cardsCount = cards.length;
 
-    if (cardsCount === 0) {return;}
+    if (cardsCount === 0) {
+        carouselCards.value = new Array(numberOfDisplayedCards * 3);
+
+        return;
+    }
 
     const newCardsArray: CarouselCard[] = [];
 
@@ -197,7 +208,7 @@ const updateState = () => {
         lastViewportSize = viewportSize;
         alterSize(viewportSize);
         updateCarouselCards();
-        rotateCarousel('no-swap', 0);
+        rotateCarousel({ updateImmediately: true });
     }
 };
 
@@ -241,7 +252,10 @@ watch(() => active, (newVal, oldVal) => {
         swapDirection = (newVal > oldVal) ? 'first-to-last-swap' : 'last-to-frist-swap';
     }
 
-    rotateCarousel(swapDirection, swapChanges);
+    rotateCarousel({
+        swapDirection,
+        swapChanges,
+    });
 });
 
 onMounted(() => {

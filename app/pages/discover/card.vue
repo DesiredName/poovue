@@ -1,26 +1,39 @@
 <template>
     <div
         class="user-highlight-card"
-        :style="{
-            backgroundImage: `url('${card.discoverImage}')`
-        }"
     >
-        <div class="card-title">
-            <div class="name">{{ card.username }}</div>
-            <div class="short-description">{{ card.shortDescription }}</div>
+        <div
+            class="card-content"
+            :style="{
+                backgroundImage: `url('${card?.discoverImage}')`,
+            }"
+        >
+            <div v-if="card" class="card-title">
+                <div class="name">{{ card.username }}</div>
+                <div class="short-description">{{ card.shortDescription }}</div>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
 defineProps<{
-    card: UserHighlight,
+    card?: UserHighlight,
 }>();
 </script>
 
 <style scoped>
 .user-highlight-card {
-	@apply relative bg-cover rounded-md select-none cursor-pointer;
+	@apply relative select-none cursor-pointer px-2;
+}
+
+.user-highlight-card .card-content {
+	@apply relative rounded-md w-full h-full bg-cover bg-no-repeat bg-left-top bg-secondary;
+	@apply transition-transform duration-300;
+}
+
+.user-highlight-card .card-content:hover {
+	@apply scale-105;
 }
 
 .user-highlight-card .card-title {
