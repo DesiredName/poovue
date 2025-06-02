@@ -30,5 +30,5 @@
     "@types/country-flag-icons": "1.2.2",
     "@types/hammerjs": "2.0.46"
   },
-  "version": "0.0.5"
+  "version": "0.0.6"
 }
