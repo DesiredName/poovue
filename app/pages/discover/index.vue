@@ -15,7 +15,10 @@
                         :cards="cards"
                         :active="activeCardIdx"
                         :number-of-displayed-cards="3"
-                        @next="handleNextIdx"
+                        :card-animation-duration="cardAnimationDuration"
+                        @next="throttledNextIdx"
+                        @animating="isAnimating = true"
+                        @finished="isAnimating = false"
                     />
                 </ClientOnly>
             </div>
@@ -24,7 +27,7 @@
                 <ElementDotz
                     :dotz="cards.length"
                     :active="activeCardIdx"
-                    @next="handleNextIdx"
+                    @next="throttledNextIdx"
                 />
             </div>
         </div>
@@ -47,8 +50,14 @@ definePageMeta({
 const { data } = await useFetch<UserHighlight[]>(UserHighlightsURL(7));
 const cards = ref(data.value ?? []);
 const activeCardIdx = ref<number>(0);
+const cardAnimationDuration = ref(300);
+const isAnimating = ref(false);
 
 const handleNextIdx = (idx: number) => {
+    if (isAnimating.value === true) {
+        return;
+    }
+
     activeCardIdx.value = idx;
 
     // if (swipeable.value) {
@@ -60,6 +69,18 @@ const handleNextIdx = (idx: number) => {
     //     }
     // }
 };
+
+const throttledNextIdx = (() => {
+    let timerId: number | undefined;
+
+    return (idx: number) => {
+        if (timerId != null) return;
+
+        handleNextIdx(idx);
+
+        timerId = window.setTimeout(() => timerId = undefined, cardAnimationDuration.value);
+    };
+})();
 </script>
 
 <style scoped>

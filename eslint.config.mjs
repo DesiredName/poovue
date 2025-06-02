@@ -17,6 +17,7 @@ export default withNuxt({
             'switchCase': 1,
             'ignores': [],
         }],
+        'vue/comma-dangle': ['error','always-multiline'],
         '@typescript-eslint/no-explicit-any': ['warn'],
     },
 });
