@@ -14,8 +14,8 @@
                         class="w-full"
                         :cards="cards"
                         :active="activeCardIdx"
-                        :number-of-displayed-cards="3"
-                        :card-animation-duration="cardAnimationDuration"
+                        :number-of-displayed-cards="highlightsPreviewItemsDisplayed"
+                        :card-animation-duration="highlightsSwipeAnimationDuration"
                         @next="throttledNextIdx"
                         @animating="isAnimating = true"
                         @finished="isAnimating = false"
@@ -46,6 +46,12 @@ import Placeholder from './placeholder.vue';
 
 const { t } = useI18n();
 const { $hammer } = useNuxtApp();
+const { discoverSection: {
+    highlightsPreviewItems,
+    highlightsPreviewItemsDisplayed,
+    highlightsSwipeAnimationDuration,
+    highlightsAutoSwipeAnimationInterval,
+}} = useAppConfig();
 
 useHead({
     title: t('appSections.discover'),
@@ -55,29 +61,17 @@ definePageMeta({
     layout: 'app',
 });
 
-const { data } = await useFetch<UserHighlight[]>(UserHighlightsURL(7));
+const { data } = await useFetch<UserHighlight[]>(UserHighlightsURL(highlightsPreviewItems));
 const cards = ref(data.value ?? []);
 const activeCardIdx = ref<number>(0);
-const cardAnimationDuration = ref(300);
 const isAnimating = ref(false);
 const swipeable = useTemplateRef<HTMLElement | null>('swipeable');
 let swiper: HammerManager | null = null;
 
 const handleNextIdx = (idx: number) => {
-    if (isAnimating.value === true) {
-        return;
+    if (isAnimating.value !== true) {
+        activeCardIdx.value = idx;
     }
-
-    activeCardIdx.value = idx;
-
-    // if (swipeable.value) {
-    //     // NOTE: idx -> [1,...,gridCols]
-    //     const child = swipeable.value.children[0]?.children?.[idx - 1];
-
-    //     if (child) {
-    //         child.scrollIntoView({ behavior: 'smooth' });
-    //     }
-    // }
 };
 
 const throttledNextIdx = (() => {
@@ -88,13 +82,11 @@ const throttledNextIdx = (() => {
 
         handleNextIdx(idx);
 
-        timerId = window.setTimeout(() => timerId = undefined, cardAnimationDuration.value);
+        timerId = window.setTimeout(() => timerId = undefined, highlightsSwipeAnimationDuration);
     };
 })();
 
-onMounted(async () => {
-    await nextTick();
-
+const initSwiper = () =>{
     if (swipeable.value != null) {
         swiper = $hammer(swipeable.value);
         swiper.on('swipe', (e) => {
@@ -105,6 +97,19 @@ onMounted(async () => {
             handleNextIdx(idx);
         });
     }
+
+    setInterval(() => {
+        if (isAnimating.value !== true) {
+            const nextIdx = InRangeValue(activeCardIdx.value + 1, 0, cards.value.length - 1);
+
+            handleNextIdx(nextIdx);
+        }
+    }, highlightsAutoSwipeAnimationInterval);
+};
+
+onMounted(async () => {
+    await nextTick();
+    initSwiper();
 });
 
 onBeforeUnmount(() => {
