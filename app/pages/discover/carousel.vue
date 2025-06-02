@@ -47,23 +47,14 @@ const {
         type: Array as PropType<UserHighlight[]>,
         required: true,
     },
-    /** Active card index, that is displayed to user */
+    /** Active card index, that is displayed to user in the center of the area */
     active: {
         type: Number,
         required: true,
     },
     /**
-	 *  Total number of cards in viewport, including side cards:
-	 *  4 cards -> 1) [2, 3] (4
-	 *
-	 *  3 cards -> 1) [2, 3, 4] (5 where
-	 *     #1 & #5    - side cards on left & right, partially visible
-	 *     #2. #3, #4 - fully visible cards
-	 *
-	 *  2 cards -> 1) [2, 3] (4
-	 *
-	 *  1 card  => 1) [2] (3
-	 **/
+	 * Number of cards been displayed in center and fully visible
+	 */
     numberOfDisplayedCards: {
         type: Number,
         default: 5,
@@ -86,11 +77,11 @@ const {
         default: 2,
     },
     /**
-	 *  This is a TOTAL animation time for carousel to swap cards.
-	 *  This includes time to scroll cards + time to swap HTML structure
-	 *  inside carousel. When it start, the `animating` event is emitted.
+	 *  This is a an animation time for carousel.
+	 *  This DOES NOT include time time to swap cards on animation ended.
+	 *  When it start, the `animating` event is emitted.
 	 *  The `finished` is emmited when carousel finshed animation and
-	 *  HTML structure swap.
+	 *  cards structure swap.
 	 */
     cardAnimationDuration: {
         type: Number,
@@ -161,7 +152,6 @@ const updateCaruselCards = () => {
 
     carouselCards.value = newCardsArray;
     carouseTotalOffset.value = (active + cards.length - Math.floor(numberOfDisplayedCards / 2) - sideCardsWidthRatio) * cardWidth.value;
-    //(active + (cards.length + numberOfDisplayedCards / 2 + (1 - sideCardsWidthRatio)))  * cardWidth.value;
 };
 
 const alterSize = (viewportSize: DOMRect) => {
