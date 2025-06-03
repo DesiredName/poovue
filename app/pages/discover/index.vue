@@ -14,8 +14,6 @@
                         class="w-full"
                         :cards="cards"
                         :active="activeCardIdx"
-                        :number-of-displayed-cards="highlightsPreviewItemsDisplayed"
-                        :card-animation-duration="highlightsSwipeAnimationDuration"
                         @next="throttledNextIdx"
                         @animating="isAnimating = true"
                         @finished="isAnimating = false"
@@ -48,7 +46,6 @@ const { t } = useI18n();
 const { $hammer } = useNuxtApp();
 const { discoverSection: {
     highlightsPreviewItems,
-    highlightsPreviewItemsDisplayed,
     highlightsSwipeAnimationDuration,
     highlightsAutoSwipeAnimationInterval,
 }} = useAppConfig();

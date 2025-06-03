@@ -130,7 +130,7 @@
 
 <script setup lang="ts">
 import { vTooltip } from 'floating-vue';
-import { WellKnownRoutes } from '~/constants';
+import { WellKnownRoutes } from '~/config';
 
 const { locale, t } = useI18n();
 const { nickname, username, toggleUnsafeContentAllowed } = await useMe();

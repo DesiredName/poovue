@@ -28,6 +28,7 @@
 <script setup lang="ts">
 import type { PropType } from 'vue';
 import Card from './card.vue';
+import isMobile from '~/utils/isMobile';
 
 type SwapDirection = 'no-swap' | 'first-to-last-swap' | 'last-to-frist-swap';
 type CarouselCard = {
@@ -56,17 +57,17 @@ const {
 	 * Number of cards been displayed in center and fully visible
 	 */
     numberOfDisplayedCards: {
-        type: Number,
-        default: 5,
+        type: Object as PropType<null | { desktop: number, mobile: number }>,
+        default: null,
     },
     /**
 	 *  How much of side cards on left and right should be displayed
 	 *  Should be in range [0 (not visible) ... 1 (fully visible)]
 	 */
     sideCardsWidthRatio: {
-        type: Number,
-        default: 0.3,
-        validator: v => typeof v === 'number' && (v >= 0 && v <= 1),
+        type: Object as PropType<null | { desktop: number, mobile: number }>,
+        default: null,
+        validator: v => v != null && typeof v === 'object' && ('desktop' in v) && ('mobile' in v),
     },
     /**
 	 * What the card's height will be in relation to it's width
@@ -93,6 +94,11 @@ const emit = defineEmits<{
     'animating': [],
     'finished': [],
 }>();
+
+const { discoverSection: {
+    highlightsPreviewItemsDisplayed,
+    highlightsPreviewItemsFlanDisplayRatio,
+}} = useAppConfig();
 
 const viewport = useTemplateRef('viewport');
 const cardWidth = ref(0);
@@ -185,13 +191,24 @@ const updateCarouselCards = () => {
 };
 
 const alterSize = (viewportSize: DOMRect) => {
+    const _numberOfDisplayedCards = numberOfDisplayedCards ?? highlightsPreviewItemsDisplayed;
+    const _sideCardsWidthRatio = sideCardsWidthRatio ?? highlightsPreviewItemsFlanDisplayRatio;
+
+    const displayedCards = isMobile() === true
+        ? _numberOfDisplayedCards.mobile
+        : _numberOfDisplayedCards.desktop;
+
+    const cardsWidthRatio = isMobile() === true
+        ? _sideCardsWidthRatio.mobile
+        : _sideCardsWidthRatio.desktop;
+
     const width = viewportSize.width;
-    const expectedRatio = numberOfDisplayedCards + (2 * sideCardsWidthRatio);
+    const expectedRatio = displayedCards + (2 * cardsWidthRatio);
 
     cardWidth.value = Math.floor(width / expectedRatio / 2) * 2; // make it even;
     cardHeight.value = cardHeightToWidthRatio * cardWidth.value;
 
-    carouseTotalOffset.value = -1 * (active + cards.length - Math.floor(numberOfDisplayedCards / 2) - sideCardsWidthRatio) * cardWidth.value;
+    carouseTotalOffset.value = -1 * (active + cards.length - Math.floor(displayedCards / 2) - cardsWidthRatio) * cardWidth.value;
 };
 
 let lastViewportSize: DOMRect = new DOMRect(0,0,0,0);
@@ -202,7 +219,7 @@ const updateState = () => {
 
     const viewportSize = viewport.value.getBoundingClientRect();
 
-    if (viewportSize.toJSON() != lastViewportSize.toJSON()) {
+    if ((viewportSize.width != lastViewportSize.width) || (viewportSize.height != lastViewportSize.height)) {
         lastViewportSize = viewportSize;
         alterSize(viewportSize);
         updateCarouselCards();
