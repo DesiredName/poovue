@@ -22,13 +22,17 @@
             :card="card"
             class="transition-transform ease-[cubic-bezier(.35,1,.8,1)]"
         />
+
+        <div
+            ref="mobile_detector"
+            class="max-w-0 max-h-0 top-0 left-0 absolute bg-transparent opacity-0 xl:opacity-100"
+        />
     </div>
 </template>
 
 <script setup lang="ts">
 import type { PropType } from 'vue';
 import Card from './card.vue';
-import isMobile from '~/utils/isMobile';
 
 type SwapDirection = 'no-swap' | 'first-to-last-swap' | 'last-to-frist-swap';
 type CarouselCard = {
@@ -101,12 +105,26 @@ const { discoverSection: {
 }} = useAppConfig();
 
 const viewport = useTemplateRef('viewport');
+const mobile_detector = useTemplateRef('mobile_detector');
 const cardWidth = ref(0);
 const cardHeight = ref(0);
 const carouselCards = ref<CarouselCard[]>([]);
 const carouseTotalOffset = ref(0);
 
 let timerId: number | undefined;
+
+const isMobile = () => {
+    if (window && mobile_detector.value) {
+        // Detect device using CSS function. We consider `mobile` any device, that has
+        // width <= xl: size of Tailwind class. Detector has opacity of `0` if this is
+        // `mobile` and `1` otherwise
+        const opacity = window.getComputedStyle(mobile_detector.value).opacity;
+
+        return opacity == '0';
+    }
+
+    return false;
+};
 
 const rotateCarousel = (options?: {
     updateImmediately?: boolean;

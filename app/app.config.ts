@@ -1,9 +1,6 @@
 export default ({
     mainTitle: 'TechTribe',
 
-    /** Device mobile width threshold value for `isMobile` utility */
-    mobileDeviceWIthThreshold: 1280,
-
     discoverSection: {
         /** How many preview items to load */
         highlightsPreviewItems: 7,
